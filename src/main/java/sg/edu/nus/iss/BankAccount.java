@@ -22,20 +22,20 @@ public class BankAccount {
     public BankAccount(String name, float balance) {
         this.name = name;
         this.balance = balance;
-        this.accNumber = "00" + num;
+        this.accNumber = "001-" + num;
         num++;
         this.transactions = new ArrayList<>();
         this.closed = false;
         this.startDate = LocalDate.now();
     }
 
-    public void deposit(int amount) {
+    public void deposit(float amount) {
         if (isClosed()) {
             throw new IllegalArgumentException("Account is closed\n");
         } 
         
         if (amount > 0) {
-            String depositMsg = "deposit $" + amount + " at " + LocalDateTime.now();
+            String depositMsg = "deposit $" + String.format("%.2f", amount) + " at " + LocalDateTime.now();
             setBalance(getBalance() + amount);
             transactions.add(depositMsg);
             System.out.println(depositMsg);
@@ -44,7 +44,7 @@ public class BankAccount {
         }
     }
 
-    public void withdraw(int amount) {
+    public void withdraw(float amount) {
         if (isClosed()) {
             throw new IllegalArgumentException("Account is closed\n");
         } 
@@ -54,7 +54,7 @@ public class BankAccount {
         }
 
         if ((getBalance() - amount) >= 0) {
-            String withdrawMsg = "withdraw $" + amount + " at " + LocalDateTime.now();
+            String withdrawMsg = "withdraw $" + String.format("%.2f", amount) + " at " + LocalDateTime.now();
             setBalance(getBalance() - amount);
             transactions.add(withdrawMsg);
             System.out.println(withdrawMsg);
